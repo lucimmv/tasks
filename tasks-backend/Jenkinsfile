@@ -63,4 +63,4 @@ pipeline {
             archiveArtifacts artifacts: 'target/tasks-backend.jar', followSymlinks: false, onlyIfSuccessful: true
         }
     }
-    }
+ }
