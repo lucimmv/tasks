@@ -49,10 +49,11 @@ pipeline {
                 sh """curl -I http://172.17.0.1:8001/todo"""
             }
         }
-        stage('build_front'){
-            steps '''
-            cd tasks-frontend
-             mvn clean package -DskipTests
+        stage('build_front') {
+            steps {
+                sh '''
+                cd tasks-frontend
+                mvn clean package -DskipTests
                 '''
             }
         }
