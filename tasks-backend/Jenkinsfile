@@ -60,7 +60,14 @@ pipeline {
                 '''
             }
         }
+        stage('deploy_front') {
+           steps{
+                sh '''
+                docker ps -q --filter "name=tasks" | grep -q . && docker stop tasks
+                docker build -t backend tasks-frontend/
+                docker run -d --rm --name tasks -e DATABASE_HOST=127.0.0.1 -p 8001:8001 backend'''
     }
+        }
     post {
         always {
             junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
