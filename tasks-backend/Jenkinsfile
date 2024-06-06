@@ -35,20 +35,6 @@ pipeline {
             }
         }
         stage('Deploy') {
-            agent {
-                // Equivalente "docker build -f Dockerfile -t backend .
-                dockerfile {
-                    filename 'Dockerfile' 
-                    dir '/var/jenkins_home/workspace/Pipeline'
-                    additionalBuildArgs  '-t backend'
-                    args '--name tasks --entrypoint="" --rm -e DATABASE_HOST="172.17.0.3" -e DATABASE_UPDATE="none" -p 8001:8001'
-                }
-            }
-            steps {
-                sh 'java -jar /app.jar'
-            }
-        }
-        stage('Deploy') {
             steps {
                 sh '''
                 docker ps -q --filter "name=tasks" | grep -q . && docker stop tasks
