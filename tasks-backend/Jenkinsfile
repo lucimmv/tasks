@@ -63,9 +63,9 @@ pipeline {
         stage('deploy_front') {
            steps {
                 sh '''
-                docker ps -q --filter "name=tasks" | grep -q . && docker stop tasks
-                docker build -t backend tasks-frontend/
-                docker run -d --rm --name tasks -e DATABASE_HOST=127.0.0.1 -p 8001:8001 backend'''
+                docker ps -q --filter "name=tasks-frontend" | grep -q . && docker stop tasks-frontend
+                docker build -t frontend tasks-frontend/
+                docker run -d --rm --name tasks-frontend -e BACKEND_HOST=127.0.0.1 -p 8002:8002 frontend'''
            }
         }
     }
