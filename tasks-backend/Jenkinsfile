@@ -68,6 +68,7 @@ pipeline {
                 docker run -d --rm --name tasks -e DATABASE_HOST=127.0.0.1 -p 8001:8001 backend'''
            }
         }
+    }
         
     post {
         always {
