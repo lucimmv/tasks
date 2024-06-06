@@ -61,7 +61,7 @@ pipeline {
             }
         }
         stage('deploy_front') {
-           steps{
+           steps {
                 sh '''
                 docker ps -q --filter "name=tasks" | grep -q . && docker stop tasks
                 docker build -t backend tasks-frontend/
@@ -75,4 +75,3 @@ pipeline {
         }
     }
  }
-
