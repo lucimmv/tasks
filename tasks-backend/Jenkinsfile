@@ -65,14 +65,14 @@ pipeline {
                 sh '''
                 docker ps -q --filter "name=tasks-frontend" | grep -q . && docker stop tasks-frontend
                 docker build -t frontend tasks-frontend/
-                docker run -d --rm --name tasks-frontend -e BACKEND_HOST=127.0.0.1 -p 8002:8002 frontend'''
+                docker run -d --rm --name tasks-frontend -e BACKEND_HOST=172.17.0.1 -p 8002:8002 frontend'''
            }
         }
     }
         
     post {
         always {
-            junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
+            junit allowEmptyResults: true, testResults: 'tasks-backend/target/surefire-reports/*.xml'
             archiveArtifacts artifacts: 'tasks-backend/target/tasks-backend.jar', followSymlinks: false, onlyIfSuccessful: true
         }
     }
